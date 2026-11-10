@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaniText — Fiverr Message Sanitizer</title>
+  <meta name="description" content="Sanitize Fiverr messages before sending. Remove off-platform contact details, payment terms, links and risky words with a fast, private, browser-only tool.">
+  <meta name="theme-color" content="#0f9d6c">
+  <meta property="og:title" content="SaniText — Fiverr Message Sanitizer">
+  <meta property="og:description" content="Clean up risky Fiverr messages in one click. 100% client-side and private.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f9d6c'/%3E%3Cpath d='M16 6l7 3v6c0 5-7 9-7 9s-7-4-7-9V9l7-3z' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M12 15l3 3 5-6' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/workspace.css">
+</head>
+<body>
+
+  <div class="workspace-shell">
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="logo-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+          </svg>
+        </div>
+        <h1 class="visually-hidden">SaniText — Fiverr Message Sanitizer</h1>
+      </div>
+
+      <div class="document-tab-bar">
+        <div id="documentTabs" class="document-tabs" role="tablist" aria-label="Open documents"></div>
+        <button id="newDocumentBtn" class="new-document-button" type="button" aria-label="Open a new document" title="Open a new document">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        </button>
+      </div>
+
+      <div class="header-tools">
+      <div class="header-actions">
+        <!-- Restricted Words Button -->
+        <button id="openWordsBtn" class="btn-theme-toggle" aria-label="Open restricted words" title="Restricted Words">
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <span class="theme-label">Restricted Words</span>
+        </button>
+
+        <!-- Settings Button -->
+        <button id="openSettingsBtn" class="btn-theme-toggle" aria-label="Open settings" title="Settings">
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a2 2 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span class="theme-label">Settings</span>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button id="themeToggleBtn" class="btn-theme-toggle" aria-label="Toggle light or dark mode" title="Dark Mode">
+          <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <span class="theme-label">Dark Mode</span>
+        </button>
+      </div>
+      <button id="fullscreenBtn" class="icon-button fullscreen-button" type="button" aria-label="Toggle full screen" title="Toggle full screen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"></path></svg>
+      </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="app-container">
+
+    <!-- Input (left) and Sanitized Output (right) -->
+    <div class="editor-grid">
+
+      <section class="panel-card" aria-label="Input Panel">
+        <div class="textarea-group">
+          <div class="editor-toolbar">
+            <div class="editor-panel-label">
+              <span>Original message</span>
+            </div>
+            <label for="inputText" class="visually-hidden">Input text</label>
+            <div class="editor-tools">
+              <span id="searchResultCount" class="search-result-count" aria-live="polite"></span>
+              <button id="findRestrictedBtn" class="icon-button sanitize-button" type="button" aria-label="Scan message for risky content" title="Scan message (Ctrl+Shift+F)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              </button>
+              <button id="clearInputBtn" class="icon-button" type="button" aria-label="Clear input text" title="Clear input text">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+          <div id="inputHighlightLayer" class="input-highlight-layer" aria-hidden="true"></div>
+          <textarea id="inputText" class="app-textarea" placeholder="Paste the message you plan to send on Fiverr..."></textarea>
+        </div>
+      </section>
+
+      <section class="panel-card" aria-label="Output Panel">
+        <div class="textarea-group">
+          <div class="editor-toolbar">
+            <div class="editor-panel-label output-panel-label">
+              <span>Sanitized output</span>
+              <button id="translateOutputBtn" class="translate-output-button" type="button" aria-label="বাংলা অনুবাদ দেখুন" title="Sanitized output বাংলায় দেখুন" aria-pressed="false" disabled>EN</button>
+            </div>
+          <label for="outputText" class="visually-hidden">Sanitized output</label>
+          <div class="editor-tools">
+              <button id="copyResultBtn" class="icon-button" type="button" aria-label="Copy sanitized output" title="Copy sanitized output">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg>
+              </button>
+              <button id="downloadResultBtn" class="icon-button" type="button" aria-label="Download sanitized output" title="Download sanitized output">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </button>
+              <button id="clearResultBtn" class="icon-button" type="button" aria-label="Clear sanitized output" title="Clear sanitized output">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"></path></svg>
+              </button>
+              <div class="share-menu-container">
+                <button id="shareOutputBtn" class="icon-button" type="button" aria-label="Share sanitized output" title="Share sanitized output" aria-haspopup="true" aria-expanded="false" disabled>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"></path></svg>
+                </button>
+                <div id="shareOutputMenu" class="share-menu" role="menu" aria-label="Share sanitized output" hidden>
+                  <button type="button" role="menuitem" data-share-platform="whatsapp">WhatsApp</button>
+                  <button type="button" role="menuitem" data-share-platform="facebook">Facebook</button>
+                  <button type="button" role="menuitem" data-share-platform="linkedin">LinkedIn</button>
+                  <button type="button" role="menuitem" data-share-platform="telegram">Telegram</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <textarea id="outputText" class="app-textarea" placeholder="Your cleaned, Fiverr-safe message will appear here..."></textarea>
+          <textarea id="translatedOutputText" class="app-textarea translated-output" placeholder="বাংলা অনুবাদ এখানে দেখা যাবে..." readonly hidden aria-label="Sanitized output Bengali translation"></textarea>
+          <div id="riskMeter" class="risk-meter output-risk-meter" data-level="clean" role="status" aria-live="polite">
+            <span class="risk-dot" aria-hidden="true"></span>
+            <span class="risk-copy">
+              <strong class="risk-label" id="riskLabel">Clean</strong>
+              <small class="risk-detail" id="riskDetail">No risky content detected</small>
+            </span>
+            <span class="risk-score"><strong id="riskScore">0</strong><small>/100</small></span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <section class="status-bar" aria-label="Text statistics">
+      <div class="status-group">
+        <span class="status-item"><strong id="inputWordCount">0</strong><span>Words</span></span>
+        <span class="status-divider" aria-hidden="true"></span>
+        <span class="status-item"><strong id="inputCharCount">0</strong><span>Characters</span></span>
+        <span class="status-divider" aria-hidden="true"></span>
+        <span class="status-item status-optional"><strong id="inputNoSpaceCount">0</strong><span>No Spaces</span></span>
+        <span class="status-divider status-optional" aria-hidden="true"></span>
+        <span class="status-item status-optional"><strong id="inputParagraphCount">0</strong><span>Paragraphs</span></span>
+      </div>
+      <div class="status-group status-output">
+        <span class="status-item"><strong id="outputCharCount">0</strong><span>Output chars</span></span>
+        <span class="status-divider" aria-hidden="true"></span>
+        <span class="status-item status-flagged"><strong id="statDetectedWords">0</strong><span>Flagged</span></span>
+      </div>
+    </section>
+
+    <div class="sr-only" aria-hidden="true">
+      <span id="outputWordCount">0</span>
+      <span id="statTotalChars">0</span>
+      <span id="statTotalWords">0</span>
+      <span id="statReplacedWords">0</span>
+      <span id="statUniqueMatches">0</span>
+      <div id="statMatchedTags"></div>
+    </div>
+    <button id="clearAllBtn" class="sr-only" type="button" aria-label="Clear all text and statistics" title="Clear all text and statistics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"></path></svg>
+      <span>Clear All</span>
+    </button>
+  </main>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- Modals & Dialogs                                                      -->
+  <!-- ===================================================================== -->
+
+  <!-- 0a. Word Management Modal -->
+  <div id="wordsModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Restricted Words</h3>
+        <div class="badges-group modal-header-badges">
+          <span class="count-badge">Total: <span id="totalWordsBadge">0</span></span>
+          <span class="count-badge">Active: <span id="activeWordsBadge">0</span></span>
+        </div>
+        <button id="closeWordsModalBtn" class="modal-close-btn" aria-label="Close word management">&times;</button>
+      </div>
+
+      <div class="modal-body modal-body-scroll">
+        <!-- Add New Word Form -->
+        <form id="addWordForm" class="add-word-form">
+          <input type="text" id="newWordInput" class="form-input" placeholder="Type a new word to block (e.g. badword)..." autocomplete="off">
+          <button type="submit" id="addWordBtn" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Add Word
+          </button>
+        </form>
+
+        <!-- Search & Filter Words -->
+        <div class="search-filter-bar">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="searchWordInput" class="form-input search-input" placeholder="Search restricted words (Ctrl+K)..." data-autofocus>
+          </div>
+        </div>
+
+        <!-- Word List Table Container -->
+        <p class="modal-helper">Words are matched as whole words by default. Click a status badge to enable or disable a term.</p>
+        <div id="wordListContainer" class="table-wrapper">
+          <!-- Rendered via JavaScript -->
+        </div>
+
+        <!-- Word Management Tools Bar -->
+        <div class="tools-bar">
+          <button id="restoreDefaultsBtn" class="btn btn-secondary" title="Restore the default Fiverr word list">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+            Restore Fiverr Defaults
+          </button>
+          <button id="clearWordsBtn" class="btn btn-danger" title="Permanently delete all restricted words">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Clear All Words
+          </button>
+        </div>
+
+        <!-- Backup & File Tools -->
+        <div class="tools-bar">
+          <!-- Hidden Inputs -->
+          <input type="file" id="importTxtInput" accept=".txt" style="display: none;">
+          <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+
+          <button id="importTxtBtn" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Import TXT
+          </button>
+
+          <button id="exportTxtBtn" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export TXT
+          </button>
+
+          <button id="importJsonBtn" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Import JSON
+          </button>
+
+          <button id="exportJsonBtn" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export Backup JSON
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 0b. Settings Modal -->
+  <div id="settingsModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Sanitization Rules &amp; Settings</h3>
+        <button id="closeSettingsModalBtn" class="modal-close-btn" aria-label="Close settings">&times;</button>
+      </div>
+
+      <div class="modal-body modal-body-scroll">
+        <section class="symbol-setting-card" aria-labelledby="sanitizerSymbolLabel">
+          <label id="sanitizerSymbolLabel" for="sanitizerSymbolInput" class="setting-label">Sanitizer Symbol</label>
+          <p class="setting-desc">Choose the separator to use between letters.</p>
+          <div class="symbol-setting-controls">
+            <input id="sanitizerSymbolInput" class="form-input" type="text" maxlength="8" value="-" aria-label="Sanitizer symbol">
+            <button id="saveSanitizerSymbolBtn" class="btn btn-primary" type="button">Save Symbol</button>
+          </div>
+        </section>
+
+        <section class="smart-detection-card" aria-labelledby="smartDetectionTitle">
+          <div class="card-heading-row">
+            <div>
+              <h4 id="smartDetectionTitle" class="card-heading">Smart detection</h4>
+              <p class="setting-desc">Catch personal information even when it is not in your word list.</p>
+            </div>
+            <span class="recommended-badge">Recommended</span>
+          </div>
+
+          <div class="smart-toggle-grid">
+            <label class="smart-toggle">
+              <span>Email addresses</span>
+              <input type="checkbox" id="detectEmailsToggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+            <label class="smart-toggle">
+              <span>Phone numbers</span>
+              <input type="checkbox" id="detectPhonesToggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+            <label class="smart-toggle">
+              <span>Links &amp; domains</span>
+              <input type="checkbox" id="detectLinksToggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+            <label class="smart-toggle">
+              <span>Social handles</span>
+              <input type="checkbox" id="detectHandlesToggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <label class="smart-toggle smart-label-toggle">
+            <span>
+              Label smart matches
+              <small>Show [EMAIL], [PHONE], [LINK] and [HANDLE]</small>
+            </span>
+            <input type="checkbox" id="smartLabelsToggle" class="switch-input" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </section>
+
+        <div class="settings-group">
+          <!-- Replacement Style -->
+          <div class="setting-item">
+            <label for="replacementStyleSelect" class="setting-label">Replacement Style</label>
+            <select id="replacementStyleSelect" class="select-input">
+              <option value="hyphenated-all" selected>p-a-y (e.g. pay → p-a-y)</option>
+              <option value="hyphenated">p-ay (e.g. pay → p-ay)</option>
+              <option value="asterisks">*** (Asterisks)</option>
+              <option value="redacted">[REDACTED]</option>
+              <option value="removed">[REMOVED]</option>
+              <option value="custom">Custom Text</option>
+            </select>
+          </div>
+
+          <!-- Custom Replacement Input -->
+          <div id="customReplacementGroup" class="setting-item" style="display: none;">
+            <label for="customReplacementInput" class="setting-label">Custom Word</label>
+            <input type="text" id="customReplacementInput" class="form-input" placeholder="e.g. [FILTERED]">
+          </div>
+
+          <!-- Case Sensitive Toggle -->
+          <div class="setting-item">
+            <span class="setting-label">Case Sensitive</span>
+            <label class="switch-label">
+              <span class="setting-desc">Match exact letter casing</span>
+              <input type="checkbox" id="caseSensitiveToggle" class="switch-input">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Whole Word Toggle -->
+          <div class="setting-item">
+            <span class="setting-label">Whole Word Only</span>
+            <label class="switch-label">
+              <span class="setting-desc">Prevent partial word matching</span>
+              <input type="checkbox" id="wholeWordToggle" class="switch-input" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Preserve Length Toggle -->
+          <div class="setting-item">
+            <span class="setting-label">Preserve Word Length</span>
+            <label class="switch-label">
+              <span class="setting-desc">Replace each char with *</span>
+              <input type="checkbox" id="preserveLengthToggle" class="switch-input">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="resetSettingsBtn" class="btn btn-secondary">Reset Rules</button>
+        <button id="doneSettingsBtn" class="btn btn-primary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Edit Word Modal -->
+  <div id="editWordModal" class="modal-backdrop modal-top" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Blocked Word</h3>
+        <button id="closeEditModalBtn" class="modal-close-btn" aria-label="Close edit modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label for="editWordInput" class="setting-label">Word string:</label>
+        <input type="text" id="editWordInput" class="form-input" placeholder="Type modified word...">
+      </div>
+      <div class="modal-footer">
+        <button id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+        <button id="saveEditBtn" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Delete Word Confirmation Modal -->
+  <div id="deleteWordModal" class="modal-backdrop modal-top" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Confirm Deletion</h3>
+        <button id="closeDeleteModalBtn" class="modal-close-btn" aria-label="Close delete modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteWordMessage">Are you sure you want to remove this word from your restricted word list?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Delete Word</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Clear All Words Modal -->
+  <div id="clearAllWordsModal" class="modal-backdrop modal-top" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Clear All Restricted Words</h3>
+        <button id="closeClearAllWordsModalBtn" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete all saved words? This action cannot be undone unless you restore the default words or re-import a backup.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelClearAllWordsBtn" class="btn btn-secondary">Cancel</button>
+        <button id="confirmClearAllWordsBtn" class="btn btn-danger">Delete All Words</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drag and Drop Overlay Zone -->
+  <div id="dropZone" class="drop-zone-overlay">
+    <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+    <h2>Drop your .txt or .json file here to import</h2>
+    <p>Supports line-separated word lists (.txt) or backup configuration (.json)</p>
+  </div>
+
+  <!-- Application Scripts (Loaded in dependency order for file:// and http:// compatibility) -->
+  <script src="js/defaultWords.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/statistics.js"></script>
+  <script src="js/sanitizer.js"></script>
+  <script src="js/risk.js"></script>
+  <script src="js/wordManager.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/importExport.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
